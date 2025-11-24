@@ -1,0 +1,560 @@
+{
+    "projectId": "691e5f49002c66af42bd",
+    "projectName": "testproject",
+    "settings": {
+        "services": {
+            "account": true,
+            "avatars": true,
+            "databases": true,
+            "locale": true,
+            "health": true,
+            "storage": true,
+            "teams": true,
+            "users": true,
+            "sites": true,
+            "functions": true,
+            "graphql": true,
+            "messaging": true
+        },
+        "auth": {
+            "methods": {
+                "jwt": true,
+                "phone": true,
+                "invites": true,
+                "anonymous": true,
+                "email-otp": true,
+                "magic-url": true,
+                "email-password": true
+            },
+            "security": {
+                "duration": 31536000,
+                "limit": 0,
+                "sessionsLimit": 10,
+                "passwordHistory": 0,
+                "passwordDictionary": false,
+                "personalDataCheck": false,
+                "sessionAlerts": false,
+                "mockNumbers": []
+            }
+        }
+    },
+    "functions": [
+        {
+            "$id": "sendnotifs",
+            "execute": [
+                "any"
+            ],
+            "name": "sendnotifs",
+            "enabled": true,
+            "logging": true,
+            "runtime": "node-16.0",
+            "scopes": [
+                "databases.read",
+                "databases.write",
+                "tables.read",
+                "collections.read",
+                "tables.write",
+                "collections.write",
+                "columns.read",
+                "attributes.read",
+                "columns.write",
+                "attributes.write",
+                "indexes.read",
+                "indexes.write",
+                "rows.read",
+                "documents.read",
+                "rows.write",
+                "documents.write"
+            ],
+            "events": [
+                "databases.6777521b00342adf566c.tables.677752fb000bbef5c3ae.rows.*.create"
+            ],
+            "schedule": "",
+            "timeout": 30,
+            "entrypoint": "",
+            "commands": "npm install",
+            "specification": "s-1vcpu-512mb",
+            "path": "functions/sendnotifs"
+        }
+    ],
+    "tablesDB": [
+        {
+            "$id": "6777521b00342adf566c",
+            "name": "extrowurtsMain",
+            "enabled": true
+        }
+    ],
+    "tables": [
+        {
+            "$id": "67775247000f82547fc6",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "6777521b00342adf566c",
+            "name": "users",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "username",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 220,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "email",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "format": "email",
+                    "default": null
+                },
+                {
+                    "key": "accountId",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 2000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "joinedParties",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 20000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "name",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "pronouns",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 20,
+                    "default": "",
+                    "encrypt": false
+                },
+                {
+                    "key": "hvtokens",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": 0,
+                    "max": 9998,
+                    "default": 0
+                },
+                {
+                    "key": "avatars",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "awards",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": "{}",
+                    "encrypt": false
+                },
+                {
+                    "key": "oldhvtokens",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": 0,
+                    "max": 9998,
+                    "default": 0
+                },
+                {
+                    "key": "photo_changed",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "dob",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 10,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "pushtoken",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "vip_passes",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": 0,
+                    "max": 99,
+                    "default": 0
+                },
+                {
+                    "key": "invites",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 999,
+                    "default": 0
+                },
+                {
+                    "key": "cityId",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "677752fb000bbef5c3ae",
+            "$permissions": [
+                "create(\"users\")",
+                "read(\"users\")",
+                "update(\"users\")",
+                "delete(\"users\")",
+                "read(\"guests\")",
+                "update(\"guests\")"
+            ],
+            "databaseId": "6777521b00342adf566c",
+            "name": "parties",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "title",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "thumbnail",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "location",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 500,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "creator",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "67775247000f82547fc6",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "6777572000280a188abf",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "members",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 500,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "requests",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 500,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "description",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "headcount",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": 3,
+                    "max": 99,
+                    "default": null
+                },
+                {
+                    "key": "superLats",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 500,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "preferences",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": "{\"drink\": false, \"smoke\": false, \"vegan\": false, \"weed\": false}",
+                    "encrypt": false
+                },
+                {
+                    "key": "date",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 30,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "time",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 30,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "superLatsAfter",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 3000,
+                    "default": "{}",
+                    "encrypt": false
+                },
+                {
+                    "key": "type",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 10,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "memories",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 3000,
+                    "default": "{}",
+                    "encrypt": false
+                },
+                {
+                    "key": "promoted",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "683fc88700330b5bdd68",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "68e9b646000667b8c7e7",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "cityId",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "683fc88700330b5bdd68",
+            "$permissions": [
+                "create(\"users\")",
+                "read(\"users\")",
+                "read(\"guests\")"
+            ],
+            "databaseId": "6777521b00342adf566c",
+            "name": "locations",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "location",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "images",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 1000,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "type",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 20,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "oname",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "oemail",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 200,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "ocontact",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 15,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "affiliatecode",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "creator",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "67775247000f82547fc6",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "68400d1a001e908820e0",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "status",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807,
+                    "default": 0
+                },
+                {
+                    "key": "cityId",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        }
+    ],
+    "buckets": [
+        {
+            "$id": "67775785002a6bad8183",
+            "$permissions": [
+                "create(\"users\")",
+                "read(\"users\")",
+                "update(\"users\")",
+                "delete(\"users\")",
+                "create(\"guests\")",
+                "read(\"guests\")"
+            ],
+            "fileSecurity": false,
+            "name": "files",
+            "enabled": true,
+            "maximumFileSize": 30000000,
+            "allowedFileExtensions": [],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        }
+    ]
+}
