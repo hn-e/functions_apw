@@ -1,8 +1,52 @@
 import { Client, Databases, Query } from "node-appwrite";
 import fetch from 'node-fetch';
 
+const titles = [
+  "🎉 The Party Plan is here!",
+  "🕺 New Hangout Alert!",
+  "🔥 Party Created Near You!",
+  "🚨 New Event Just Dropped!",
+  "🎶 People Are Partying!",
+  "🌟 Hangout Starts Now!",
+  "🥳 Fun is Waiting for You!",
+  "💥 New hangout in Your City!",
+  "🚀 Get Ready to Party!",
+  "🌈 New Event, New Vibes!",
+  "🎉Its happening! Join the Fun!",
+  "🎈 The Ultimate Hangout is Here!",
+  "🌍 Local Party Alert!",
+  "🏙 Something Big is Planned!",
+  "💃 The Hottest Hangout Near You!"
+];
+
+const msgs = [
+  "Join before it fills up!",
+  "RSVP now, spots are limited!",
+  "Don’t miss out! Grab your spot!",
+  "Hurry, the fun’s waiting!",
+  "Join the party before it’s full!",
+  "Get in on the action now!",
+  "Don’t wait! RSVP now!",
+  "Spots filling fast! Join now!",
+  "Hurry, time’s running out!",
+  "Be part of the fun—join now!",
+  "Get in quick before it’s gone!",
+  "RSVP before it’s too late!",
+  "Join the party while you can!",
+  "This event’s heating up! Join fast!",
+  "Spots are going fast! Don’t miss it!"
+];
+
+function getRandomElement(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 async function commonPushUtil(toPushToken, title, msg) {
   if (!toPushToken) return;
+
+  const pushTitle = title || getRandomElement(titles);
+  const pushMsg = msg || getRandomElement(msgs);
+
   await fetch("https://exp.host/--/api/v2/push/send", {
     method: "POST",
     headers: {
@@ -11,8 +55,8 @@ async function commonPushUtil(toPushToken, title, msg) {
     body: JSON.stringify({
       to: toPushToken,
       sound: "default",
-      title,
-      body: msg
+      title: pushTitle,
+      body: pushMsg
     })
   });
 }
@@ -50,8 +94,7 @@ export default async ({ req, res }) => {
     for (let i = 0; i < allTokens.length; i += batchSize) {
       const batch = allTokens.slice(i, i + batchSize);
       // console.log(batch);
-      // console.log('==========');
-      await Promise.all(batch.map(token => commonPushUtil(token, "Hello", "Your message")));
+      await Promise.all(batch.map(token => commonPushUtil(token)));
     }
 
     return res.json({ sent: allTokens.length });
