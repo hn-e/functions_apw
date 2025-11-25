@@ -72,31 +72,38 @@ export default async ({ req, res, log, error }) => {
 
     const customTitle = data.title;
     const customMsg = data.msg;
+    const customUsers = data.tokens;
 
-    const client = new Client()
-      .setEndpoint(process.env.APPWRITE_ENDPOINT)
-      .setProject(process.env.APPWRITE_PROJECTID)
-      .setKey(process.env.APPWRITE_SENDNOTIF_APIKEY);
-
-    const databases = new Databases(client);
-
-    const pageSize = 500;  // fetch 500 users at a time
-    let offset = 0;
-    let more = true;
     let allTokens = [];
 
-    while (more) {
-      const users = await databases.listDocuments(
-        process.env.APPWRITE_DATABASEID,
-        process.env.APPWRITE_USER_COLLECTIONID,
-        [ Query.limit(pageSize), Query.offset(offset) ]
-      );
+    if (Array.isArray(customUsers) && customUsers.length > 0) {
+      allTokens = customUsers.filter(Boolean);
+    } else {
 
-      const tokens = users.documents.map(doc => doc.pushtoken).filter(Boolean);
-      allTokens.push(...tokens);
+      const client = new Client()
+        .setEndpoint(process.env.APPWRITE_ENDPOINT)
+        .setProject(process.env.APPWRITE_PROJECTID)
+        .setKey(process.env.APPWRITE_SENDNOTIF_APIKEY);
 
-      offset += pageSize;
-      more = users.total > offset;
+      const databases = new Databases(client);
+
+      const pageSize = 500;  // fetch 500 users at a time
+      let offset = 0;
+      let more = true;
+
+      while (more) {
+        const users = await databases.listDocuments(
+          process.env.APPWRITE_DATABASEID,
+          process.env.APPWRITE_USER_COLLECTIONID,
+          [ Query.limit(pageSize), Query.offset(offset) ]
+        );
+
+        const tokens = users.documents.map(doc => doc.pushtoken).filter(Boolean);
+        allTokens.push(...tokens);
+
+        offset += pageSize;
+        more = users.total > offset;
+      }
     }
 
     // send in batches of 100 (Expo limit)
