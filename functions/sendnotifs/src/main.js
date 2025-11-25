@@ -61,7 +61,7 @@ async function commonPushUtil(toPushToken, title, msg) {
   });
 }
 
-export default async ({ req, res }) => {
+export default async ({ req, res, log, error }) => {
   try {
     const client = new Client()
       .setEndpoint(process.env.APPWRITE_ENDPOINT)
@@ -93,13 +93,14 @@ export default async ({ req, res }) => {
     const batchSize = 100;
     for (let i = 0; i < allTokens.length; i += batchSize) {
       const batch = allTokens.slice(i, i + batchSize);
-      // console.log(batch);
+      log(batch);
       await Promise.all(batch.map(token => commonPushUtil(token)));
     }
 
     return res.json({ sent: allTokens.length });
 
   } catch (err) {
+    error(err);
     return res.json({ error: err.message, details: err });
   }
 };
