@@ -7,3 +7,11 @@ appwrite functions create-deployment --function-id="sendnotifs" --entrypoint="sr
 
 ## To create an execution
 appwrite functions create-execution --function-id="sendnotifs"
+
+## Custom Notification
+
+{
+  "title": "📢 Breaking News!",
+  "msg": "Custom notification just for today!"
+}
+

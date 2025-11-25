@@ -63,6 +63,16 @@ async function commonPushUtil(toPushToken, title, msg) {
 
 export default async ({ req, res, log, error }) => {
   try {
+    let data = {};
+    try {
+      data = req.body ? JSON.parse(req.body) : {};
+    } catch (e) {
+      log("Invalid JSON body");
+    }
+
+    const customTitle = data.title;
+    const customMsg = data.msg;
+
     const client = new Client()
       .setEndpoint(process.env.APPWRITE_ENDPOINT)
       .setProject(process.env.APPWRITE_PROJECTID)
@@ -94,10 +104,12 @@ export default async ({ req, res, log, error }) => {
     for (let i = 0; i < allTokens.length; i += batchSize) {
       const batch = allTokens.slice(i, i + batchSize);
       log(batch);
-      await Promise.all(batch.map(token => commonPushUtil(token)));
+      await Promise.all(batch.map(token =>
+        commonPushUtil(token, customTitle, customMsg)
+      ));
     }
 
-    return res.json({ sent: allTokens.length });
+    return res.json({ sent: allTokens.length, customTitle, customMsg });
 
   } catch (err) {
     error(err);
