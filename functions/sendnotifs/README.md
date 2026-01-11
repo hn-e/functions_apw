@@ -20,12 +20,31 @@ himanshusoni@Himanshus-Mac-mini functions_apw % appwrite functions create-execut
 ## Custom Notification
 
 {
-  "title": "📢 Breaking News!",
-  "msg": "Custom notification just for today!"
+  "__type":"__send_notification",
+  "__title": "📢 Breaking News!",
+  "__msg": "Custom notification just for today!"
 }
 
 {
-  "title": "🔥 Special Update!",
-  "msg": "Only for selected users.",
-  "tokens":["ExponentPushToken[ev17fPFlicJShy3CYdgzOm]"]
+  "__type":"__send_notification",
+  "__title": "🔥 Special Update!",
+  "__msg": "Only for selected users.",
+  "__tokens":["ExponentPushToken[ev17fPFlicJShy3CYdgzOm]"]
 }
+
+himanshusoni@Himanshus-Mac-mini functions_apw % appwrite functions create-execution \
+  --function-id="sendnotifs" \
+  --body='{
+    "__type":"__send_notification",
+    "__title":"📢 Personalized Alert",
+    "__msg":"Only for selected users!",
+    "__tokens":["ExponentPushToken[On5_gsFI-P5I_Nfkd1SUW7]"]         
+  }'
+
+
+  himanshusoni@Himanshus-Mac-mini functions_apw % appwrite functions create-execution \                                                                                              
+  --function-id="sendnotifs" \
+  --body='{
+    "__action":"__party_fetch",
+    "partyId":"695232ff003579be78e0"
+  }'
