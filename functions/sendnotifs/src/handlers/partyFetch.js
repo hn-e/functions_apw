@@ -53,6 +53,7 @@ export async function partyFetch({ data, log }) {
     type: party.type,
     creatorname: party.creator.name,
     date: party.date,
+    time: party.time,
     description: party.description,
     headcount: party.headcount,
     superLats: party.superLats,
