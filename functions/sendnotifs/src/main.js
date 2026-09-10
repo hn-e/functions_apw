@@ -1,5 +1,6 @@
 import { sendNotification } from "./handlers/sendNotification.js";
 import { partyFetch } from "./handlers/partyFetch.js";
+import { googleAuth } from "./handlers/googleAuth.js";
 
 export default async ({ req, res, log, error }) => {
   try {
@@ -17,6 +18,10 @@ export default async ({ req, res, log, error }) => {
 
       case "__party_fetch":
         result = await partyFetch({ data, log });
+        break;
+
+      case "__google_auth":
+        result = await googleAuth({ data, log });
         break;
 
       default:
