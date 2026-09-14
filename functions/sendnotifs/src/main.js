@@ -13,6 +13,7 @@ if (!globalThis.fetch) {
 import { sendNotification } from "./handlers/sendNotification.js";
 import { partyFetch } from "./handlers/partyFetch.js";
 import { googleAuth } from "./handlers/googleAuth.js";
+import { appleAuth } from "./handlers/appleAuth.js";
 
 export default async ({ req, res, log, error }) => {
   try {
@@ -34,6 +35,10 @@ export default async ({ req, res, log, error }) => {
 
       case "__google_auth":
         result = await googleAuth({ data, log });
+        break;
+
+      case "__apple_auth":
+        result = await appleAuth({ data, log });
         break;
 
       default:
