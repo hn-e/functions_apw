@@ -10,7 +10,7 @@
   "dependencies": {
     "google-auth-library": "^11.0.2",
     "jsonwebtoken": "^9.0.3",
-    "jwks-rsa": "^4.1.0",
+    "jwks-rsa": "^3.2.2",
     "node-appwrite": "^14.1.0",
     "node-fetch": "^3.3.2"
   },
