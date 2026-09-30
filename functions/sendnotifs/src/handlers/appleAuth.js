@@ -82,6 +82,7 @@ export async function appleAuth({ data, log }) {
   return {
     userId: userId,
     secret: token.secret,
+    email: email,
   };
 }
 
