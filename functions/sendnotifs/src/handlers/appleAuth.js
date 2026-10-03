@@ -34,7 +34,7 @@ const verifyAppleToken = (token) => {
 };
 
 export async function appleAuth({ data, log }) {
-  const { identityToken } = data;
+  const { identityToken, emailFallback } = data;
   
   if (!identityToken) {
     throw new Error("Missing identityToken in request");
@@ -43,10 +43,12 @@ export async function appleAuth({ data, log }) {
   log("[APPLE_AUTH] Verifying token");
   const decoded = await verifyAppleToken(identityToken);
   
-  const email = decoded.email;
+  let email = decoded.email || emailFallback;
   
   if (!email) {
-    throw new Error("Apple token did not contain an email address");
+    log("[APPLE_AUTH] No email found in token or fallback. Generating placeholder.");
+    const appleUserId = decoded.sub; // Apple's unique subject ID for the user
+    email = `apple_${appleUserId}@extroverts.app`;
   }
 
   log(`[APPLE_AUTH] Token verified for email: ${email}`);
